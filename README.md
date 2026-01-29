@@ -1,73 +1,140 @@
-# Welcome to your Lovable project
+# FindSecure
 
-## Project info
+Modern web application to help users create secure inquiries and find matching opportunities with strong privacy & security focus.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Overview
 
-## How can I edit this code?
+FindSecure lets users submit inquiries that are matched intelligently with relevant results or partners — all while prioritizing data security, user privacy, and clean matching logic.
 
-There are several ways of editing your application.
+The application combines:
 
-**Use Lovable**
+- A modern React + TypeScript + Tailwind frontend
+- Supabase for authentication, PostgreSQL database, storage and edge functions
+- Custom server-side matching logic
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- Secure user authentication & session management (Supabase Auth)
+- Inquiry creation and submission
+- Automatic intelligent matching of inquiries (via edge function)
+- Clean, responsive UI with shadcn/ui components
+- Type-safe Supabase client & strong TypeScript usage throughout
+- Database schema migrations
+- Basic testing setup (Vitest)
 
-**Use your preferred IDE**
+## Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+| Layer          | Technologies                              |
+|----------------|-------------------------------------------|
+| Frontend       | React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui |
+| Backend / DB   | Supabase (Auth + PostgreSQL + Edge Functions) |
+| Styling        | Tailwind CSS + PostCSS                    |
+| Testing        | Vitest                                    |
+| Linting/Formatting | ESLint + Prettier                     |
+| Package Manager| npm / bun                                 |
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Prerequisites
 
-Follow these steps:
+- Node.js ≥ 18
+- npm
+- Supabase account & project
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Quick Start (Local Development)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Clone the repository
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install dependencies
+```bash
+#npm
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Create .env file
+```code
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-public-key
+```
+
+5. Start development server
+```bash
+#npm
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Supabase Setup (must do once)
 
-**Use GitHub Codespaces**
+1. Create Supabase project
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+2. Enable Email authentication
 
-## What technologies are used for this project?
+3. Apply migrations
+```bash
+# Recommended: use Supabase CLI
+supabase login
+supabase link --project-ref your-project-ref
+supabase migration up
+```
 
-This project is built with:
+4. Deploy the matching edge function
+```bash
+supabase functions deploy match-inquiry
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+5. (Recommended) Enable Row Level Security (RLS) on relevant tables
 
-## How can I deploy this project?
+## Available Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```bash
+npm run dev      # start dev server
+npm run build    # build for production
+npm run preview  # preview production build
+npm run test     # run tests with Vitest
+npm run lint     # run ESLint
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Project Structure (important folders)
+```text
+FindSecure/
+├── public/                     # static files
+├── src/
+│   ├── components/             # shadcn + custom UI components
+│   ├── hooks/                  # custom React hooks
+│   ├── integrations/
+│   │   └── supabase/           # client, types, queries
+│   ├── lib/                    # utilities
+│   ├── pages/                  # main views / routes
+│   ├── test/                   # test helpers
+│   ├── types/                  # global types
+│   ├── App.tsx
+│   └── main.tsx
+├── supabase/
+│   ├── functions/
+│   │   └── match-inquiry/      # core matching logic (Deno)
+│   ├── migrations/             # SQL schema + RLS
+│   └── config.toml
+├── .env.example
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+└── README.md
+```
+## Contributing
 
-Yes, you can!
+1. Fork & create branch:
+```bash
+git checkout -b feature/your-feature
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+2. Commit:
+```bash
+git commit -m "Add your feature"
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+3. Push & open Pull Request
+
+Please run npm run lint before submitting.
+```bash
+git clone https://github.com/adamMarh/FindSecure.git
+cd FindSecure
